@@ -1,10 +1,11 @@
 //If other classes want to be mappable with addMarker method, they need to derive from this 
 //interface
-interface Mappable{
+export interface Mappable{
     location:{
         lat:number;
         lng:number
     };
+    getText():string;
 }
 
 export class CustomMap{
@@ -19,13 +20,21 @@ export class CustomMap{
             }
         });
     }
+
     addMarker(mappable:Mappable){
-        new google.maps.Marker({
+        const marker = new google.maps.Marker({
             map:this.googleMap,
             position:{
                 lat:mappable.location.lat,
                 lng:mappable.location.lng
             }
+        });
+
+        marker.addListener('click',()=>{
+            const infoWindow = new google.maps.InfoWindow({
+                content: mappable.getText()
+            })
+            infoWindow.open(this.googleMap,marker);
         })
     }
 }

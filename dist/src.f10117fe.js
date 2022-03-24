@@ -136895,6 +136895,10 @@ function () {
     };
   }
 
+  User.prototype.getText = function () {
+    return "<h1>My name is: ".concat(this.name, "</h1>");
+  };
+
   return User;
 }();
 
@@ -136927,6 +136931,10 @@ function () {
     };
   }
 
+  Company.prototype.getText = function () {
+    return "<div><h1>Company Name: ".concat(this.companyName, "</h1>\n        <h3>Our best catchphrase: ").concat(this.catchPhrase, "</h3></div>");
+  };
+
   return Company;
 }();
 
@@ -136953,12 +136961,20 @@ function () {
   }
 
   CustomMap.prototype.addMarker = function (mappable) {
-    new google.maps.Marker({
+    var _this = this;
+
+    var marker = new google.maps.Marker({
       map: this.googleMap,
       position: {
         lat: mappable.location.lat,
         lng: mappable.location.lng
       }
+    });
+    marker.addListener('click', function () {
+      var infoWindow = new google.maps.InfoWindow({
+        content: mappable.getText()
+      });
+      infoWindow.open(_this.googleMap, marker);
     });
   };
 

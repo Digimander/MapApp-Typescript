@@ -1,6 +1,6 @@
 import faker from 'faker';
-
-export class User{
+import { Mappable } from './CustomMap';
+export class User implements Mappable{
     name: string;
     //location is not automatically initialized 
     //it is our responsibility to do it in constructor before usage
@@ -14,6 +14,9 @@ export class User{
             lat : parseFloat(faker.address.latitude()),
             lng : parseFloat(faker.address.longitude())
         }
+    }
+    getText():string{
+        return `<h1>My name is: ${this.name}</h1>`;
     }
 }
 
