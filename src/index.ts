@@ -5,5 +5,6 @@ import { CustomMap } from './CustomMap';
 const user = new User();
 const company = new Company();
 
-new CustomMap('map',5,0,0);
-//hide the 
+const customMap = new CustomMap('map',5,0,0);
+customMap.addMarker(user);
+customMap.addMarker(company);

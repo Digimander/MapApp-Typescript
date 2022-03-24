@@ -1,3 +1,12 @@
+//If other classes want to be mappable with addMarker method, they need to derive from this 
+//interface
+interface Mappable{
+    location:{
+        lat:number;
+        lng:number
+    };
+}
+
 export class CustomMap{
     private googleMap: google.maps.Map; //our map will be instance of google map but private,we want to expose only part of it
 
@@ -9,5 +18,14 @@ export class CustomMap{
                 lng:lng
             }
         });
+    }
+    addMarker(mappable:Mappable){
+        new google.maps.Marker({
+            map:this.googleMap,
+            position:{
+                lat:mappable.location.lat,
+                lng:mappable.location.lng
+            }
+        })
     }
 }
